@@ -129,13 +129,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(pet.getId()) });
     }
 
-
-    public void deletePet(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PET, KEY_ID + " = ?",
-                new String[] { String.valueOf(id) });
-    }
-
     public int updateGrowth(Growth growth) {
         SQLiteDatabase db = this.getWritableDatabase();
 //        Log.d("update","update");
@@ -150,36 +143,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[] {String.valueOf(growth.getPet_id()), String.valueOf(growth.getId())});
     }
 
+
+
+    public void deletePet(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PET, KEY_ID + " = ?",
+                new String[] { String.valueOf(id) });
+    }
+
+
     public void deleteGrowth(long pet_id, long id){
         SQLiteDatabase db = this.getWritableDatabase();
 //        delete from GROWTH where pet_id='' and id =''
 //        "SELECT  * FROM " + TABLE_GROWTH + " WHERE " + KEY_PET_ID + " = " + pet_id + " AND " + KEY_ID + " = " + id ;
 
         db.delete(TABLE_GROWTH, KEY_PET_ID + " = ? and " + KEY_ID + " = ? ",
-                new String[] { String.valueOf(pet_id),String.valueOf(id) });
-    }
-
-    public int updateFeeding(Food feeding) {
-        SQLiteDatabase db = this.getWritableDatabase();
-//        Log.d("update","update");
-        ContentValues values = new ContentValues();
-        values.put(KEY_ID, feeding.getId());
-        values.put(KEY_PET_ID, feeding.getPet_id());
-        values.put(KEY_FOOD, feeding.getFood());
-        values.put(KEY_FREQUENCY, feeding.getFrequency());
-        values.put(KEY_SUPPLEMENT, feeding.getSupplement());
-        values.put(KEY_AMOUNT, feeding.getAmount());
-        values.put(KEY_FEEDING_START,feeding.getStartDate());
-        // updating row
-        return db.update(TABLE_FEEDING, values, KEY_PET_ID + " = ? and " + KEY_ID + " = ? ",
-                new String[] {String.valueOf(feeding.getPet_id()), String.valueOf(feeding.getId())});
-    }
-
-    public void deleteFeeding(long pet_id, long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        //        delete from TABLE_FEEDING where pet_id='' and id =''
-
-        db.delete(TABLE_FEEDING, KEY_PET_ID + " = ? and " + KEY_ID + " = ? ",
                 new String[] { String.valueOf(pet_id),String.valueOf(id) });
     }
 
